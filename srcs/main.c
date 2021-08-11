@@ -6,9 +6,12 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 21:26:32 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/11 17:31:43 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/08/11 17:50:33 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// mep bouffe (int qui augmente, quand == nmb philo arret)
+// mep mort pdt sommeil (check avt avec tmps restant ou thread detach)
 
 #include "../includes/philo.h"
 
