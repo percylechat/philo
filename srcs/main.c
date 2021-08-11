@@ -6,12 +6,11 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 21:26:32 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/05 15:27:48 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:23:52 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
 
 int get_time(t_phi *p)
 {
@@ -30,7 +29,7 @@ int check_alive(t_phi *p)
 
     gettimeofday(&now, NULL);
     result = (((long)now.tv_usec / 1000) + ((double)now.tv_sec * 1000)) - (((long)p->last_meal.tv_usec / 1000) + ((double)p->last_meal.tv_sec * 1000));
-    // printf("time: %ld", result);
+    p->status = 1;
     if (result >= p->die)
         return (1);
     return (0);
@@ -38,15 +37,18 @@ int check_alive(t_phi *p)
 
 void    handle_food(t_phi *p)
 {
-    if (check_alive(p) == 0)
+    if (p->status == 0 && check_alive(p) == 0)
     {
         say_food(p);
+        gettimeofday(&p->last_meal, NULL);
         usleep(p->eat);
         p->eat_count++;
-        gettimeofday(&p->last_meal, NULL);
     }
     else
-        say_dead(p);
+    {
+        // say_dead(p);
+        return;
+    }
     pthread_mutex_unlock(p->l_spoon);
     pthread_mutex_unlock(p->r_spoon);
 
@@ -54,14 +56,56 @@ void    handle_food(t_phi *p)
 
 void    handle_sleep(t_phi *p)
 {
-    write(1, "ok", 2);
     if (check_alive(p) == 0)
     {
         say_sleep(p);
         usleep(p->sleep);
+        say_think(p);
     }
     else
-        say_dead(p);
+    {
+        // say_dead(p);
+        return;
+    }
+}
+
+void	*wait_for_spoons(void *p)
+{
+	t_phi *v;
+
+	v = (t_phi *)p;
+	while (v->has_spoons != 2)
+	{
+		if (check_alive(v) == 1)
+		{
+            pthread_mutex_unlock(v->l_spoon);
+            pthread_mutex_unlock(v->r_spoon);
+			// say_dead(v);
+			return (NULL);
+		}
+        usleep(1);
+	}
+	return (NULL);
+}
+
+void    get_spoons(t_phi *p)
+{
+    pthread_t	thread;
+
+    if (p->status == 0)
+    {
+	    p->has_spoons = 0;
+	    pthread_create(&thread, NULL, wait_for_spoons, p);
+	    pthread_detach(thread);
+        if (p->total > 1)
+        {
+            pthread_mutex_lock(p->r_spoon);
+            say_spoon(p, 1);
+	        pthread_mutex_lock(p->l_spoon);
+            say_spoon(p, 0);
+            p->has_spoons = 2;
+        }
+    }
 }
 
 void *ft_life(void *test)
@@ -71,13 +115,22 @@ void *ft_life(void *test)
     p = (t_phi *) test;
     gettimeofday(&p->born, NULL);
     gettimeofday(&p->last_meal, NULL);
-    say_hello(p);
     while (p->status == 0)
     {
-        if (pthread_mutex_lock(p->l_spoon) == 0 && pthread_mutex_lock(p->r_spoon) == 0 && p->num > 1)
+        if ((p->num + 1) % 2 == 0)
+        {
+            say_hello(p);
+            get_spoons(p);
             handle_food(p);
-        handle_sleep(p);
-        // handle_think(p);
+            handle_sleep(p);
+        }
+        else
+        {
+            say_hello(p);
+            handle_sleep(p);
+            get_spoons(p);
+            handle_food(p);
+        }
     }
     say_dead(p);
     return (NULL);
@@ -98,6 +151,12 @@ void run_life(t_info *info)
             ft_putstr_fd("error thread", 2);
             return;
         }
+        i++;
+    }
+    i = 0;
+    while (i < info->philo)
+    {
+        pthread_join(info->philos[i].id, NULL);
         i++;
     }
 }

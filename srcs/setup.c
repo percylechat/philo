@@ -37,9 +37,11 @@ void	prep_philo(t_info *info)
 	info->philos = (t_phi *)malloc(sizeof(t_phi) * info->philo);
 	if (!info->philos)
         return;
+    // printf("main %p\n", &info->main);
 	while (i < info->philo)
 	{
 		info->philos[i].num = i;
+        info->philos[i].total = info->philo;
         info->philos[i].eat_count = 0;
         info->philos[i].status = 0;
         info->philos[i].die = info->die;
@@ -52,6 +54,7 @@ void	prep_philo(t_info *info)
             info->philos[i].l_spoon = &info->spoons[info->philo - 1];
         info->philos[i].r_spoon = &info->spoons[i];
         info->philos[i].main = &info->main;
+        // printf("philo %d %p\n", i, &info->philos[i].main);
     	i++;
 	}
 }

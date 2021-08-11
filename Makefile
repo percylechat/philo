@@ -11,7 +11,8 @@ FS			= a.out.dSYM philo.dSYM
 CC			= gcc
 RM			= rm -f
 RM_DIR		= rm -rf
-CFLAGS		= -g3 -fsanitize=address -Wall -Wextra -Werror -DLinux
+CFLAGS		= -Wall -Wextra -Werror -DLinux
+# -g3 -fsanitize=thread
 DEP			= -lpthread
 $(NAME):		$(OBJ)
 #add CFLAGS

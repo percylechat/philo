@@ -10,11 +10,13 @@
 typedef struct s_phi
 {
     int num;
+    int total;
     pthread_t id;
     int eat_count;
     int status;
     pthread_mutex_t *l_spoon;
     pthread_mutex_t *r_spoon;
+    int has_spoons;
     int die;
     int eat;
     int sleep;
@@ -49,6 +51,8 @@ void    say_hello(t_phi *p);
 void    say_food(t_phi *p);
 void    say_dead(t_phi *p);
 void    say_sleep(t_phi *p);
+void    say_spoon(t_phi *p, int i);
+void    say_think(t_phi *p);
 
 /*
 **setup
