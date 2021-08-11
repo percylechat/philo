@@ -21,6 +21,7 @@ typedef struct s_phi
     int eat;
     int sleep;
     int goal;
+    int *life;
     struct timeval last_meal;
     struct timeval born;
     pthread_mutex_t *main;
@@ -37,12 +38,22 @@ typedef struct s_info
     void **start;
     pthread_mutex_t *spoons;
     t_phi *philos;
+    int life;
 }   t_info;
 
 /*
 **main
 */
 int get_time(t_phi *p);
+int check_alive(t_phi *p);
+
+/*
+**do_stuff
+*/
+void    handle_food(t_phi *p);
+void    handle_sleep(t_phi *p);
+void	*wait_for_spoons(void *p);
+void    get_spoons(t_phi *p);
 
 /*
 **talk

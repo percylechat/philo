@@ -17,6 +17,7 @@ int get_param(int argc, char **argv, t_info *info)
         return (-1);
     if (info->philo == 0)
         return (-1);
+    info->life = 0;
     return (0);
 }
 
@@ -48,6 +49,7 @@ void	prep_philo(t_info *info)
         info->philos[i].eat = info->eat;
         info->philos[i].sleep = info->sleep;
         info->philos[i].goal = info->goal;
+        info->philos[i].life = &info->life;
         if (i != 0)
             info->philos[i].l_spoon = &info->spoons[i-1];
         else

@@ -1,4 +1,5 @@
 SRCS =	./srcs/main.c \
+		./srcs/do_stuff.c \
 		./srcs/talk.c \
 		./srcs/setup.c \
 		./srcs/basic_utils.c \
