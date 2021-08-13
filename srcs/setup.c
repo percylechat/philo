@@ -12,19 +12,22 @@ int get_param(int argc, char **argv, t_info *info)
         if (info->goal == -1)
             return (-1);
     }
+    else
+        info->goal = 0;
     if (info->philo == -1 || info->die == -1 || info->eat == -1 || \
         info->sleep == -1)
         return (-1);
     if (info->philo == 0)
         return (-1);
     info->life = 0;
+    info->food = 0;
     return (0);
 }
 
 int error_arg(int num)
 {
     if (num == 0)
-        ft_putstr_fd("Error: not enough arguments\n", 2);
+        ft_putstr_fd("Error: arguments\n", 2);
     else if (num == 1)
         ft_putstr_fd("Error: invalid parameter\n", 2);
     return (-1);
@@ -50,6 +53,7 @@ void	prep_philo(t_info *info)
         info->philos[i].sleep = info->sleep;
         info->philos[i].goal = info->goal;
         info->philos[i].life = &info->life;
+        info->philos[i].food = &info->food;
         if (i != 0)
             info->philos[i].l_spoon = &info->spoons[i-1];
         else

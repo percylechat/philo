@@ -22,6 +22,7 @@ typedef struct s_phi
     int sleep;
     int goal;
     int *life;
+    int *food;
     struct timeval last_meal;
     struct timeval born;
     pthread_mutex_t *main;
@@ -39,6 +40,7 @@ typedef struct s_info
     pthread_mutex_t *spoons;
     t_phi *philos;
     int life;
+    int food;
 }   t_info;
 
 /*

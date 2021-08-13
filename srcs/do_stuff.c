@@ -1,5 +1,15 @@
 #include "../includes/philo.h"
 
+void    say_full(t_phi *p)
+{
+    pthread_mutex_lock(p->main);
+    ft_putstr_nbr(get_time(p), 1);
+    ft_putstr_fd(" ", 1);
+    ft_putstr_nbr(p->num + 1, 1);
+    ft_putstr_fd(" is full\n", 1);
+    pthread_mutex_unlock(p->main);
+}
+
 void    handle_food(t_phi *p)
 {
     int i;
@@ -10,6 +20,13 @@ void    handle_food(t_phi *p)
         say_food(p);
         gettimeofday(&p->last_meal, NULL);
         p->eat_count++;
+        if (p->eat_count == p->goal)
+        {
+            *p->food += 1;
+            say_full(p);
+        }
+        if (*p->food == p->total)
+            *p->life = 1;
         usleep(p->eat * 1000);
     }
     else if (i == 1)

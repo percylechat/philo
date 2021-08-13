@@ -1,0 +1,83 @@
+Start:
+0 1 is sleeping
+0 3 is sleeping
+0 2 has taken the fork to his right
+1 2 has taken the fork to his left
+1 2 is eating
+1 4 has taken the fork to his right
+1 4 has taken the fork to his left
+1 4 is eating
+100 1 is thinking
+100 3 is thinking
+101 2 is sleeping
+101 1 has taken the fork to his right
+102 4 is sleeping
+102 3 has taken the fork to his right
+102 3 has taken the fork to his left
+102 3 is eating
+102 1 has taken the fork to his left
+102 1 is eating
+201 2 is thinking
+202 1 is sleeping
+202 3 is sleeping
+203 4 is thinking
+203 2 has taken the fork to his right
+203 2 has taken the fork to his left
+204 2 is eating
+204 4 has taken the fork to his right
+204 4 has taken the fork to his left
+204 4 is eating
+303 1 is thinking
+303 3 is thinking
+304 2 is sleeping
+304 1 has taken the fork to his right
+305 4 is sleeping
+305 3 has taken the fork to his right
+305 3 has taken the fork to his left
+306 3 is eating
+306 1 has taken the fork to his left
+306 1 is eating
+404 2 is thinking
+405 4 is thinking
+406 3 is sleeping
+406 2 has taken the fork to his right
+407 2 has taken the fork to his left
+407 2 is eating
+407 1 is sleeping
+407 4 has taken the fork to his right
+408 4 has taken the fork to his left
+408 4 is eating
+507 3 is thinking
+507 2 is sleeping
+507 1 is thinking
+508 1 has taken the fork to his right
+508 1 has taken the fork to his left
+508 1 is eating
+508 4 is sleeping
+509 3 has taken the fork to his right
+509 3 has taken the fork to his left
+510 3 is eating
+607 2 is thinking
+608 1 is sleeping
+609 4 is thinking
+609 4 has taken the fork to his right
+610 2 has taken the fork to his right
+610 2 has taken the fork to his left
+610 2 is eating
+ok610 2 is full
+610 4 has taken the fork to his left
+610 4 is eating
+ok610 4 is full
+610 3 is sleeping
+709 1 is thinking
+710 2 is sleeping
+710 1 has taken the fork to his right
+711 1 has taken the fork to his left
+711 1 is eating
+ok711 1 is full
+711 3 is thinking
+711 4 is sleeping
+712 3 has taken the fork to his right
+712 3 has taken the fork to his left
+712 3 is eating
+ok712 3 is full
