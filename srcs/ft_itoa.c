@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/15 10:28:34 by budal-bi          #+#    #+#             */
+/*   Updated: 2021/08/15 10:31:43 by budal-bi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 static char	*ft_attrib(int n, char *res, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (n == -2147483648)
@@ -23,7 +35,7 @@ static char	*ft_attrib(int n, char *res, int i)
 
 static int	ft_mallocsize(int n)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (n <= 0)
@@ -42,7 +54,8 @@ static char	*ft_int_min(void)
 	int		i;
 
 	i = 12;
-	if (!(res = malloc(sizeof(char) * i)))
+	res = malloc(sizeof(char) * i);
+	if (!res)
 		return (NULL);
 	res[0] = '-';
 	ft_attrib(-2147483648, res, i - 2);
@@ -51,7 +64,7 @@ static char	*ft_int_min(void)
 	return (res);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*res;
 	int		i;
@@ -64,7 +77,8 @@ char		*ft_itoa(int n)
 		return (res);
 	}
 	i = ft_mallocsize(n);
-	if (!(res = malloc(sizeof(char) * i)))
+	res = malloc(sizeof(char) * i);
+	if (!res)
 		return (NULL);
 	if (n < 0)
 		res[0] = '-';

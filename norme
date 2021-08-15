@@ -1,0 +1,14 @@
+
+srcs/ft_itoa.c: OK!
+includes/philo.h: OK!
+srcs/setup.c: Error!
+Error: TOO_MANY_LINES       (line:  76, col:   1):	Function has more than 25 lines
+srcs/talk.c: Error!
+Error: TOO_MANY_FUNCS       (line:  66, col:   1):	Too many functions in file
+srcs/do_stuff.c: OK!
+srcs/basic_utils.c: OK!
+
+srcs/main.c: Error!
+Error: TOO_MANY_LINES       (line:  78, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_LINES       (line: 128, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 130, col:   1):	Too many functions in file

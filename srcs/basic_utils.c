@@ -6,7 +6,7 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 22:01:51 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/07/14 12:07:02 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/08/15 10:44:27 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	ft_putstr_nbr(int i, int fd)
 	free(buf);
 }
 
-int		ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c < 48 || c > 57)
 		return (0);
 	return (1);
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int			i;
 	int			k;
@@ -56,11 +56,11 @@ int				ft_atoi(const char *str)
 	i = 0;
 	k = 0;
 	if (ft_isdigit(str[0]) == 0)
-		return -1;
+		return (-1);
 	while (str[i] <= '9' && str[i] >= '0')
 	{
 		k *= 10;
-	    k += str[i] - 48;
+		k += str[i] - 48;
 		i++;
 	}
 	return (k);
