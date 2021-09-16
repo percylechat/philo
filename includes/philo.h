@@ -6,7 +6,7 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 10:28:14 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 10:38:38 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/08/15 14:24:09 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,19 @@ void	get_spoons(t_phi *p);
 /*
 **talk
 */
-void	say_hello(t_phi *p);
 void	say_food(t_phi *p);
 void	say_dead(t_phi *p);
 void	say_sleep(t_phi *p);
 void	say_spoon(t_phi *p, int i);
 void	say_think(t_phi *p);
+
+/*
+**time
+*/
+int		get_time(t_phi *p);
+int		check_alive(t_phi *p);
+void	*wait_for_sleep(void *p);
+void	*wait_for_spoons(void *p);
 
 /*
 **setup

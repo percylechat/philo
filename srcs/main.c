@@ -6,45 +6,11 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 21:26:32 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 10:48:43 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/08/15 14:58:00 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// mep bouffe (int qui augmente, quand == nmb philo arret)
-// mep mort pdt sommeil (check avt avec tmps restant ou thread detach)
-
 #include "../includes/philo.h"
-
-int	get_time(t_phi *p)
-{
-	int				time;
-	struct timeval	now;
-
-	gettimeofday(&now, NULL);
-	time = (((long)now.tv_usec / 1000) + ((double)now.tv_sec * 1000)) - \
-		(((long)p->born.tv_usec / 1000) + ((double)p->born.tv_sec * 1000));
-	return (time);
-}
-
-int	check_alive(t_phi *p)
-{
-	struct timeval	now;
-	long			result;
-
-	gettimeofday(&now, NULL);
-	result = (((long)now.tv_usec / 1000) + ((double)now.tv_sec * 1000)) - \
-		(((long)p->last_meal.tv_usec / 1000) + ((double)p->last_meal.tv_sec * \
-		1000));
-	if (*p->life == 1)
-		return (2);
-	else if (result >= p->die)
-	{
-		p->status = 1;
-		*p->life = 1;
-		return (1);
-	}
-	return (0);
-}
 
 void	live_life(t_phi *p)
 {
@@ -53,7 +19,7 @@ void	live_life(t_phi *p)
 	i = check_alive(p);
 	if (i > 0)
 		return ;
-	else if ((p->num + 1) % 2 == 0)
+	else if ((p->num + 1) % 2 != 0)
 	{
 		get_spoons(p);
 		i = check_alive(p);
@@ -117,20 +83,14 @@ void	run_life(t_info *info)
 		pthread_join(info->philos[i].id, NULL);
 		i++;
 	}
-	i = 0;
-	while (i < info->philo)
-	{
-		pthread_mutex_destroy(&info->spoons[i]);
-		i++;
-	}
-	pthread_mutex_unlock(&info->main);
-	pthread_mutex_destroy(&info->main);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_info	info[1];
+	int		i;
 
+	i = 0;
 	if (argc < 5 || argc > 6)
 		return (error_arg(0));
 	if (get_param(argc, argv, info) == -1)
@@ -139,5 +99,10 @@ int	main(int argc, char *argv[])
 	create_spoons(info);
 	prep_philo(info);
 	run_life(info);
+	while (i < info->philo)
+		pthread_mutex_destroy(&info->spoons[i++]);
+	pthread_mutex_destroy(&info->main);
+	free(info->philos);
+	free(info->spoons);
 	return (0);
 }

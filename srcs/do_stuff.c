@@ -6,7 +6,7 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 10:27:51 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 11:18:28 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/08/15 14:26:12 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,46 +47,6 @@ void	handle_food(t_phi *p)
 	pthread_mutex_unlock(p->r_spoon);
 }
 
-// void	handle_sleep(t_phi *p)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = check_alive(p);
-// 	if (i == 0)
-// 	{
-// 		say_sleep(p);
-// 		usleep(p->sleep * 1000);
-// 		i = check_alive(p);
-// 		if (i == 0)
-// 			say_think(p);
-// 		else if (i == 1)
-// 			say_dead(p);
-// 	}
-// 	else if (i == 1)
-// 		say_dead(p);
-// }
-
-void	*wait_for_sleep(void *p)
-{
-	t_phi	*v;
-	int		i;
-
-	v = (t_phi *)p;
-	while (v->has_spoons != 2)
-	{
-		i = check_alive(p);
-		if (i != 0)
-		{
-			if (i == 1)
-				say_dead(p);
-			return (NULL);
-		}
-		usleep(1);
-	}
-	return (NULL);
-}
-
 void	handle_sleep(t_phi *p)
 {
 	int			i;
@@ -109,28 +69,6 @@ void	handle_sleep(t_phi *p)
 	}
 	else if (i == 1)
 		say_dead(p);
-}
-
-void	*wait_for_spoons(void *p)
-{
-	t_phi	*v;
-	int		i;
-
-	v = (t_phi *)p;
-	while (v->has_spoons != 2)
-	{
-		i = check_alive(p);
-		if (i != 0)
-		{
-			if (i == 1)
-				say_dead(p);
-			pthread_mutex_unlock(v->l_spoon);
-			pthread_mutex_unlock(v->r_spoon);
-			return (NULL);
-		}
-		usleep(1);
-	}
-	return (NULL);
 }
 
 void	get_spoons(t_phi *p)

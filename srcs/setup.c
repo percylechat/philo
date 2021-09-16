@@ -6,7 +6,7 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 10:28:21 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 10:41:07 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/08/15 14:20:18 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ void	prep_philo(t_info *info)
 		else
 			info->philos[i].l_spoon = &info->spoons[info->philo - 1];
 		info->philos[i].r_spoon = &info->spoons[i];
-		info->philos[i].main = &info->main;
-		i++;
+		info->philos[i++].main = &info->main;
 	}
 }
 

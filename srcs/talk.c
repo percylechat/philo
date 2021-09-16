@@ -5,23 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/15 10:28:18 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 10:40:00 by budal-bi         ###   ########.fr       */
+/*   Created: 2021/08/15 14:25:28 by budal-bi          #+#    #+#             */
+/*   Updated: 2021/08/15 14:25:31 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-// PB DE LOCK pas meme adresse, chack cmt theo
-
-void	say_hello(t_phi *p)
-{
-	pthread_mutex_lock(p->main);
-	ft_putstr_fd("HELLO i am philo ", 1);
-	ft_putstr_nbr(p->num + 1, 1);
-	ft_putstr_fd("\n", 1);
-	pthread_mutex_unlock(p->main);
-}
 
 void	say_food(t_phi *p)
 {
