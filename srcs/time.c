@@ -6,7 +6,7 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 14:24:11 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 14:24:23 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:42:28 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	*wait_for_sleep(void *p)
 		if (i != 0)
 		{
 			if (i == 1)
-				say_dead(p);
+				speaker(p, " is dead\n");
 			return (NULL);
 		}
 		usleep(1);
@@ -75,7 +75,7 @@ void	*wait_for_spoons(void *p)
 		if (i != 0)
 		{
 			if (i == 1)
-				say_dead(p);
+				speaker(p, " is dead\n");
 			pthread_mutex_unlock(v->l_spoon);
 			pthread_mutex_unlock(v->r_spoon);
 			return (NULL);

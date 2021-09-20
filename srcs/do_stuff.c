@@ -6,19 +6,19 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 10:27:51 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 14:26:12 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:41:27 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	say_full(t_phi *p)
+void	speaker(t_phi *p, char *str)
 {
 	pthread_mutex_lock(p->main);
 	ft_putstr_nbr(get_time(p), 1);
 	ft_putstr_fd(" ", 1);
 	ft_putstr_nbr(p->num + 1, 1);
-	ft_putstr_fd(" is full\n", 1);
+	ft_putstr_fd(str, 1);
 	pthread_mutex_unlock(p->main);
 }
 
@@ -29,20 +29,26 @@ void	handle_food(t_phi *p)
 	i = check_alive(p);
 	if (i == 0)
 	{
-		say_food(p);
+		speaker(p, " is eating\n");
 		gettimeofday(&p->last_meal, NULL);
 		p->eat_count++;
 		if (p->eat_count == p->goal)
 		{
 			*p->food += 1;
-			say_full(p);
+			speaker(p, " is full\n");
 		}
 		if (*p->food == p->total)
 			*p->life = 1;
 		usleep(p->eat * 1000);
+		// int i = 0;
+		// while (i < p->eat * 1000)
+		// {
+		// 	usleep(1);
+		// 	i++;
+		// }
 	}
 	else if (i == 1)
-		say_dead(p);
+		speaker(p, " is dead\n");
 	pthread_mutex_unlock(p->l_spoon);
 	pthread_mutex_unlock(p->r_spoon);
 }
@@ -58,17 +64,23 @@ void	handle_sleep(t_phi *p)
 		p->has_spoons = 0;
 		pthread_create(&thread, NULL, wait_for_sleep, p);
 		pthread_detach(thread);
-		say_sleep(p);
-		usleep(p->sleep * 1000);
+		speaker(p, " is sleeping\n");
+		// usleep(p->sleep * 1000);
+		// int i = 0;
+		// while (i < p->sleep * 1000)
+		// {
+		// 	usleep(1);
+		// 	i++;
+		// }
 		p->has_spoons = 2;
 		i = check_alive(p);
 		if (i == 0)
-			say_think(p);
+			speaker(p, " is thinking\n");
 		else if (i == 1)
-			say_dead(p);
+			speaker(p, " is dead\n");
 	}
 	else if (i == 1)
-		say_dead(p);
+		speaker(p, " is dead\n");
 }
 
 void	get_spoons(t_phi *p)
@@ -85,13 +97,13 @@ void	get_spoons(t_phi *p)
 		if (p->total > 1)
 		{
 			pthread_mutex_lock(p->r_spoon);
-			say_spoon(p, 1);
+			speaker(p, " has taken the spoon to his right\n");
 			pthread_mutex_lock(p->l_spoon);
-			say_spoon(p, 0);
+			speaker(p, " has taken the spoon to his left\n");
 			p->has_spoons = 2;
 			handle_food(p);
 		}
 	}
 	else if (i == 1)
-		say_dead(p);
+		speaker(p, " is dead\n");
 }
