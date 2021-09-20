@@ -6,11 +6,21 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 14:24:11 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/09/20 11:42:28 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:36:35 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+long	get_time_stamp(void)
+{
+	struct timeval	tv;
+	long			now;
+
+	gettimeofday(&tv, NULL);
+	now = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (now);
+}
 
 int	get_time(t_phi *p)
 {
@@ -58,7 +68,7 @@ void	*wait_for_sleep(void *p)
 				speaker(p, " is dead\n");
 			return (NULL);
 		}
-		usleep(1);
+		sleepy_time(1);
 	}
 	return (NULL);
 }
@@ -80,7 +90,7 @@ void	*wait_for_spoons(void *p)
 			pthread_mutex_unlock(v->r_spoon);
 			return (NULL);
 		}
-		usleep(1);
+		sleepy_time(1);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 10:27:51 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/09/20 11:41:27 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:36:44 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ void	speaker(t_phi *p, char *str)
 	ft_putstr_nbr(p->num + 1, 1);
 	ft_putstr_fd(str, 1);
 	pthread_mutex_unlock(p->main);
+}
+
+void	sleepy_time(int time)
+{
+	long	start;
+	long	now;
+
+	start = get_time_stamp();
+	now = start;
+	while (time > now - start)
+	{
+		usleep(1);
+		now = get_time_stamp();
+	}
 }
 
 void	handle_food(t_phi *p)
@@ -39,13 +53,7 @@ void	handle_food(t_phi *p)
 		}
 		if (*p->food == p->total)
 			*p->life = 1;
-		usleep(p->eat * 1000);
-		// int i = 0;
-		// while (i < p->eat * 1000)
-		// {
-		// 	usleep(1);
-		// 	i++;
-		// }
+		sleepy_time(p->eat);
 	}
 	else if (i == 1)
 		speaker(p, " is dead\n");
@@ -65,13 +73,7 @@ void	handle_sleep(t_phi *p)
 		pthread_create(&thread, NULL, wait_for_sleep, p);
 		pthread_detach(thread);
 		speaker(p, " is sleeping\n");
-		// usleep(p->sleep * 1000);
-		// int i = 0;
-		// while (i < p->sleep * 1000)
-		// {
-		// 	usleep(1);
-		// 	i++;
-		// }
+		sleepy_time(p->sleep);
 		p->has_spoons = 2;
 		i = check_alive(p);
 		if (i == 0)

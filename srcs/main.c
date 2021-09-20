@@ -6,41 +6,44 @@
 /*   By: budal-bi <budal-bi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 21:26:32 by budal-bi          #+#    #+#             */
-/*   Updated: 2021/08/15 14:58:00 by budal-bi         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:34:01 by budal-bi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	live_life(t_phi *p)
+void	live_life_odd(t_phi *p)
 {
 	int	i;
 
 	i = check_alive(p);
 	if (i > 0)
 		return ;
-	else if ((p->num + 1) % 2 != 0)
-	{
-		get_spoons(p);
-		i = check_alive(p);
-		if (i > 0)
-			return ;
-		handle_sleep(p);
-		i = check_alive(p);
-		if (i > 0)
-			return ;
-	}
-	else
-	{
-		handle_sleep(p);
-		i = check_alive(p);
-		if (i > 0)
-			return ;
-		get_spoons(p);
-		i = check_alive(p);
-		if (i > 0)
-			return ;
-	}
+	get_spoons(p);
+	i = check_alive(p);
+	if (i > 0)
+		return ;
+	handle_sleep(p);
+	i = check_alive(p);
+	if (i > 0)
+		return ;
+}
+
+void	live_life_even(t_phi *p)
+{
+	int	i;
+
+	i = check_alive(p);
+	if (i > 0)
+		return ;
+	handle_sleep(p);
+	i = check_alive(p);
+	if (i > 0)
+		return ;
+	get_spoons(p);
+	i = check_alive(p);
+	if (i > 0)
+		return ;
 }
 
 void	*ft_life(void *test)
@@ -52,7 +55,10 @@ void	*ft_life(void *test)
 	gettimeofday(&p->last_meal, NULL);
 	while (p->status == 0 && *p->life == 0)
 	{
-		live_life(p);
+		if ((p->num + 1) % 2 != 0)
+			live_life_odd(p);
+		else
+			live_life_even(p);
 	}
 	if (check_alive(p) == 2)
 		return (NULL);
